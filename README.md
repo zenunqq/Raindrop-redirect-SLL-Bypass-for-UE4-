@@ -1,4 +1,4 @@
-RAINDROP IS AN SSL BYPASS AND HTTP REDIRECT DLL FOR FORTNITE (UE4/UE5). IT INTERCEPTS OUTBOUND HTTP REQUESTS FROM THE GAME AND FORWARDS THEM TO A CUSTOM BACKEND, ENABLING PRIVATE SERVER SUPPORT.
+Raindrop is an SSL bypass and HTTP redirect DLL for Fortnite (UE4/UE5). It intercepts outbound HTTP requests from the game and forwards them to a custom backend, enabling private server support.
 If you use Raindrop in your project, credit is appreciated.
 Backend URL
 Set RD_ORIGIN To your backend url
