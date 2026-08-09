@@ -2,12 +2,6 @@
 #include "pch.h"
 #include "xstr.h"
 
-// ---------------------------------------------------------------
-// PE section resolution — uses AES-CTR decoded section names.
-// Callers pass (iv_and_ct, sizeof(blob) - 16) matching the new
-// xstr.h layout where the first 16 bytes are the IV.
-// ---------------------------------------------------------------
-
 namespace Raindrop {
 namespace Image {
 
@@ -44,5 +38,5 @@ inline Region FindSection(void* mod, const uint8_t* encBlob, size_t ct_len) {
     return {};
 }
 
-} // namespace Image
-} // namespace Raindrop
+} 
+}

@@ -15,13 +15,6 @@ struct CurlRequest {
 
 static wchar_t g_Destination[512] = RD_ORIGIN;
 
-// -----------------------------------------------
-// Detour pointers stored as XOR-obfuscated pairs.
-// The real function address is never stored raw in
-// writable memory; it requires XOR with a runtime
-// cookie to reconstruct.  Cookie is derived from
-// stack entropy at init time.
-// -----------------------------------------------
 static uintptr_t g_Cookie         = 0;
 static uintptr_t g_GameOrigXor    = 0;
 static uintptr_t g_EosOrigXor     = 0;
@@ -36,14 +29,9 @@ static inline void* LoadOrig(uintptr_t slot) {
 static int64_t g_SetUrlSlot = 0;
 static void**  g_AnchorSlot = nullptr;
 
-// -----------------------------------------------
-// Derive a runtime cookie from stack address entropy.
-// Not a security primitive — just eliminates the
-// plaintext function pointer in writable data.
-// -----------------------------------------------
 static void InitCookie() {
     uintptr_t stack_addr;
-    // RtlCaptureStackBackTrace would import a symbol; use inline trick instead
+    
     __asm__ volatile("mov %%rsp, %0" : "=r"(stack_addr));
     uint32_t tsc_lo;
     __asm__ volatile("rdtsc" : "=a"(tsc_lo) : : "edx");
@@ -96,9 +84,6 @@ static void WriteUrl(CurlRequest* req, FStr& url, bool forEos) {
     reinterpret_cast<void(*)(CurlRequest*, FStr*)>(req->VT[idx])(req, &url);
 }
 
-// -----------------------------------------------
-// Forward — reconstructs original via XOR cookie.
-// -----------------------------------------------
 static bool Forward(CurlRequest* req, uintptr_t origXor, bool isEos) {
     auto orig = reinterpret_cast<bool(*)(CurlRequest*)>(LoadOrig(origXor));
 
@@ -138,5 +123,5 @@ static void AttachEos(void** slot) {
     StoreOrig(g_EosOrigXor, prev);
 }
 
-} // namespace Intercept
-} // namespace Raindrop
+} 
+}

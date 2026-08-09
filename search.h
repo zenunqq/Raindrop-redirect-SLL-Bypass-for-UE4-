@@ -4,11 +4,6 @@
 #include "locate.h"
 #include "intercept.h"
 
-// ---------------------------------------------------------------
-// Anchor matching — uses AES-CTR decoded wide strings.
-// Adjusted for new xstr.h layout: blob = IV(16) || CT(n).
-// ---------------------------------------------------------------
-
 namespace Raindrop {
 namespace Search {
 
@@ -88,5 +83,5 @@ static void Run(const Corpus& c) {
     }
 }
 
-} // namespace Search
-} // namespace Raindrop
+} 
+}

@@ -3,19 +3,17 @@
 
 namespace Raindrop {
 
-// Parsed representation of a URL.
-// Fields are heap-allocated FStr slices; call DropAll() when done.
 struct Url {
-    FStr Proto;   // "https"
-    FStr Glue;    // "://"
-    FStr Host;    // "account-public-service-prod.ol.epicgames.com"
-    FStr PortStr; // ":443" or empty
-    FStr Path;    // "/fortnite/api/..."
-    FStr Query;   // "?key=val" or empty
+    FStr Proto;   
+    FStr Glue;    
+    FStr Host;    
+    FStr PortStr; 
+    FStr Path;    
+    FStr Query;   
 
-    // Two-pass tokenizer:
-    //   Pass 1 - split at first ':' to get scheme + rest
-    //   Pass 2 - split rest into authority and path/query via first '/'
+    
+    
+    
     static Url From(const wchar_t* raw) {
         Url u;
         if (!raw) return u;
@@ -24,7 +22,7 @@ struct Url {
         size_t colon = full.IndexOf(L':');
         if (colon == FStr::kNone) { full.Release(); return u; }
 
-        // --- Pass 1: scheme ---
+        
         u.Proto = full.Slice(0, colon);
 
         bool dbl = full.Ptr[colon + 1] == L'/' && full.Ptr[colon + 2] == L'/';
@@ -34,7 +32,7 @@ struct Url {
         FStr after = full.Slice(colon + glueLen);
         full.Release();
 
-        // --- Pass 2: authority vs path ---
+        
         size_t slash = after.IndexOf(L'/');
         FStr authority = after.Slice(0, slash);
         FStr pathq     = (slash != FStr::kNone)
@@ -57,7 +55,7 @@ struct Url {
         return u;
     }
 
-    // Replace scheme + host + port from a backend string (e.g. "http://127.0.0.1:3551")
+    
     void SwapOrigin(const wchar_t* backend) {
         Url b = From(backend);
         Proto.Release();   Proto   = b.Proto;
@@ -68,7 +66,7 @@ struct Url {
         b.Query.Release();
     }
 
-    // Rebuild the full URL into a single heap-allocated FStr
+    
     FStr Assemble() const {
         size_t total = Proto.CharLen() + Glue.CharLen() + Host.CharLen()
                      + PortStr.CharLen() + Path.CharLen() + Query.CharLen();
@@ -95,4 +93,4 @@ struct Url {
     }
 };
 
-} // namespace Raindrop
+}

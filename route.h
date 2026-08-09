@@ -18,7 +18,6 @@ inline uint32_t HashW(const wchar_t* s) {
     return h;
 }
 
-// Pre-computed hashes of known Epic/EOS domains
 static const uint32_t kDomainHashes[] = {
     HashW(L"ol.epicgames.com"),
     HashW(L"ol.epicgames.net"),
@@ -29,7 +28,6 @@ static const uint32_t kDomainHashes[] = {
 };
 static constexpr size_t kDomainCount = sizeof(kDomainHashes) / sizeof(kDomainHashes[0]);
 
-// Hybrid mode paths (matches Starfall's Hybrid case)
 static constexpr const wchar_t* kHybridPaths[] = {
     L"/fortnite/api/v2/versioncheck/",
     L"/fortnite/api/game/v2/profile/",
@@ -41,7 +39,6 @@ static constexpr const wchar_t* kHybridPaths[] = {
 };
 static constexpr size_t kHybridPathCount = sizeof(kHybridPaths) / sizeof(kHybridPaths[0]);
 
-// Dev mode paths (matches Starfall's Dev case)
 static constexpr const wchar_t* kDevPaths[] = {
     L"/fortnite/api/game/v2/profile/",
     L"/affiliate/api/public/affiliates/slug",
@@ -84,5 +81,5 @@ inline bool ShouldForward(const Url& u) {
     }
 }
 
-} // namespace Route
-} // namespace Raindrop
+} 
+}

@@ -6,11 +6,6 @@
 
 namespace Raindrop {
 
-// FStr mirrors Unreal Engine's FString memory layout:
-//   wchar_t* Ptr   (8 bytes)
-//   int32_t  Num   (4 bytes) - character count including null terminator
-//   int32_t  Cap   (4 bytes)
-// Passing FStr* to UE vtable functions that expect FString* is safe.
 struct FStr {
     wchar_t* Ptr = nullptr;
     int32_t  Num = 0;
@@ -35,7 +30,7 @@ struct FStr {
         if (Ptr) memcpy(Ptr, src, Num * sizeof(wchar_t));
     }
 
-    // Wrap a raw UE-owned pointer without taking ownership
+    
     static FStr Borrow(wchar_t* raw) {
         FStr s;
         s.Ptr = raw;
@@ -56,7 +51,7 @@ struct FStr {
 
     bool Empty() const { return CharLen() == 0; }
 
-    // Substring [off, off+len)
+    
     FStr Slice(size_t off, size_t len = kNone) const {
         size_t total = CharLen();
         if (off >= total) return FStr{};
@@ -102,4 +97,4 @@ struct FStr {
     operator wchar_t*() const { return Ptr; }
 };
 
-} // namespace Raindrop
+}
