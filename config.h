@@ -7,7 +7,7 @@ enum RaindropURLSet {
     All,
 };
 
-constexpr StarfallURLSet URLSet = Default;
+constexpr RaindropfallURLSet URLSet = Default;
 
 #define RD_ORIGIN L"http://127.0.0.1:3551"
 
