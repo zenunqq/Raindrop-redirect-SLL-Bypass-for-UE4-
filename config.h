@@ -1,6 +1,6 @@
 #pragma once
 
-enum StarfallURLSet {
+enum RaindropURLSet {
     Default,
     Hybrid,
     Dev,
